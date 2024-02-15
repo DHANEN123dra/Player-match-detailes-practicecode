@@ -130,9 +130,9 @@ app.get('/matches/:matchId/players', async (request, response) => {
   WHERE
   player_id = ${playerId};`
 
-  const PlayerMatchArray = await db.all(getplayerMatchDetailesQuery)
+  const playerMatchArray = await db.all(getPlayerMatchQuery)
   response.send(
-    PlayerMatchArray.map(eachplayerdetailes =>
+    playerMatchArray.map(eachplayerdetailes =>
       convertPlayerDbObjectToResponseObject(eachplayerdetailes),
     ),
   )
@@ -144,7 +144,7 @@ app.get('/players/:playerId/playerScores', async (request, response) => {
  SELECT
   player_id as playerID,
   player_name as playerName,
-  SUM(score) as totalScore
+  SUM(score) as totalScore,
   SUM (fours) as totalFours,
   SUM(sixes) as totalSixes
  FROM 
