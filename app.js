@@ -132,10 +132,9 @@ app.get('/matches/:matchId/players', async (request, response) => {
    match_id = ${matchId};`
 
   const playerMatchArray = await db.all(getPlayerMatchQuery)
-  response.send(
-   response.send(getPlayerMatchQuery)
-  )
-})
+  
+   response.send(playerMatchArray)
+  })
 
 app.get('/players/:playerId/playerScores', async (request, response) => {
   const {playerId} = request.params
