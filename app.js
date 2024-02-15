@@ -124,17 +124,16 @@ app.get('/matches/:matchId/players', async (request, response) => {
   const {matchId} = request.params
   const getPlayerMatchQuery = `
   SELECT
-    *
+    player_match_score.player_id as playerId,
+    player_name as playerName
   FROM
-   player_match_score NATURAL JOIN player_details 
+   player_details INNER JOIN player_match_score ON player_details.player_id=player_match_score.player_id 
   WHERE
-  match_id = ${matchId};`
+   match_id = ${matchId};`
 
   const playerMatchArray = await db.all(getPlayerMatchQuery)
   response.send(
-    playerMatchArray.map(eachplayerdetailes =>
-      convertPlayerDbObjectToResponseObject(eachplayerdetailes),
-    ),
+   response.send(getPlayerMatchQuery)
   )
 })
 
